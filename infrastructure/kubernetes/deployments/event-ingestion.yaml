@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-ingestion
+  namespace: smart-retail
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: event-ingestion
+  template:
+    metadata:
+      labels:
+        app: event-ingestion
+    spec:
+      containers:
+      - name: event-ingestion
+        image: your-registry/event-ingestion:latest
+        ports:
+        - containerPort: 8001
+        env:
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: "kafka:9092"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-ingestion
+  namespace: smart-retail
+spec:
+  selector:
+    app: event-ingestion
+  ports:
+  - protocol: TCP
+    port: 8001
+    targetPort: 8001
