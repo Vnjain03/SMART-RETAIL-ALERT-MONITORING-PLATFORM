@@ -20,37 +20,114 @@ const theme = createTheme({
   },
 });
 
-function App() {
+interface ProtectedRouteProps {
+
+  children: React.ReactElement;
+
+}
+
+ 
+
+function ProtectedRoute({ children }: ProtectedRouteProps): React.ReactElement {
+
   const isAuthenticated = !!localStorage.getItem('access_token');
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          
-          <Route path="/register" element={<Register />} />
-            path="/dashboard"
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/events"
-            element={isAuthenticated ? <Events /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/alerts"
-            element={isAuthenticated ? <Alerts /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/rules"
-            element={isAuthenticated ? <Rules /> : <Navigate to="/login" />}
-          />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
-  );
+ 
+
+  if (!isAuthenticated) {
+
+    return <Navigate to="/login" replace />;
+
+  }
+
+ 
+
+  return children;
+
 }
+
+ 
+
+function App() {
+
+  return (
+
+    <ThemeProvider theme={theme}>
+
+      <CssBaseline />
+
+      <Router>
+
+        <Routes>
+
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/register" element={<Register />} />
+
+          <Route
+
+            path="/dashboard"
+
+            element={
+
+              <ProtectedRoute>
+
+                <Dashboard />
+
+              </ProtectedRoute>
+
+            }
+
+          />
+
+          <Route
+
+            path="/events"
+
+            element={
+
+              <ProtectedRoute>
+
+                <Events />
+
+              </ProtectedRoute>
+
+            }
+
+          />
+
+          <Route
+
+            path="/alerts"
+
+            element={
+
+              <ProtectedRoute>
+
+                <Alerts />
+
+              </ProtectedRoute>
+
+            }
+
+          />
+
+          <Route
+
+            path="/rules"
+
+            element={
+
+              <ProtectedRoute>
+
+                <Rules />
+
+              </ProtectedRoute>
+
+            }
+
+}
+
+ 
 
 export default App;
