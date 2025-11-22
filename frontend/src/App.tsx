@@ -125,9 +125,19 @@ function App() {
               </ProtectedRoute>
 
             }
-
-}
-
  
 
+          />
+
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+
+        </Routes>
+
+      </Router>
+
+    </ThemeProvider>
+
+  );
+
+}
 export default App;
