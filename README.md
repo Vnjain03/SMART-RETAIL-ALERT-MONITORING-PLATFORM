@@ -201,43 +201,6 @@ kubectl apply -f infrastructure/kubernetes/
 └── README.md
 ```
 
-## 🚀 Deployment Guide for Live Demo
-
-To deploy this for a live link on your resume:
-
-### Option 1: Free Tier Deployment (Recommended for Resume)
-
-**Using Render.com (Free tier available):**
-1. Sign up at render.com
-2. Connect your GitHub repository
-3. Deploy each service as a Web Service
-4. Use managed PostgreSQL instead of Cosmos DB
-5. Use managed Redis for Kafka alternative
-
-**Using Railway.app:**
-1. Sign up at railway.app
-2. Deploy from GitHub
-3. Automatic HTTPS and custom domains
-4. $5 free credit monthly
-
-**Using Fly.io:**
-1. Install flyctl CLI
-2. Run `fly launch` in each service directory
-3. Free tier includes 3 shared VMs
-
-### Option 2: Cloud Platform (Production)
-
-**Azure (Full stack):**
-- AKS cluster
-- Azure Cosmos DB
-- Azure Event Hubs (Kafka-compatible)
-- Estimated cost: $200-300/month
-
-**AWS:**
-- EKS cluster
-- DynamoDB / DocumentDB
-- Amazon MSK (Managed Kafka)
-- Estimated cost: $180-250/month
 
 ## 📄 License
 
