@@ -19,6 +19,20 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Handle response errors without auto-redirecting
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Don't redirect on login errors - let the component handle it
+    // Only redirect on 401 if we're not already on the login page
+    if (error.response?.status === 401 && !window.location.pathname.includes('/login')) {
+      localStorage.removeItem('access_token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Auth API
 export const authAPI = {
   login: async (credentials: LoginCredentials): Promise<AuthToken> => {
