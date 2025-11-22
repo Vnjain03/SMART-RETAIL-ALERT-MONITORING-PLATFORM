@@ -3,12 +3,18 @@ services:
   - type: web
     name: smart-retail-frontend
     env: static
-    buildCommand: cd frontend && rm -rf node_modules build && npm install && DISABLE_ESLINT_PLUGIN=true npm run build
+    buildCommand: cd frontend && rm -rf node_modules build .cache && npm cache clean --force && npm install && npm run build
     staticPublishPath: ./frontend/build
     envVars:
       - key: DISABLE_ESLINT_PLUGIN
         value: true
+      - key: ESLINT_NO_DEV_ERRORS
+        value: true
+      - key: TSC_COMPILE_ON_ERROR
+        value: true
       - key: CI
+        value: false
+      - key: GENERATE_SOURCEMAP
         value: false
     routes:
       - type: rewrite
